@@ -9,8 +9,12 @@ const search = document.getElementById("search");
 async function getUser(userName) {
   const req = await fetch(USER_API + userName);
   const responce = await req.json();
-  createUserCard(responce);
-  getRepose(userName);
+  if (!responce.message) {
+    createUserCard(responce);
+    getRepose(userName);
+  } else {
+    createErrorBlock(responce.message);
+  }
 }
 
 form.addEventListener("submit", (e) => {
@@ -21,6 +25,17 @@ form.addEventListener("submit", (e) => {
     search.value = "";
   }
 });
+
+function createErrorBlock(message) {
+  const CardHtml = `
+  <div class="card">
+    <div class="user-info">
+      <h2>User ${message}</h2>
+    </div>
+  </div>
+  `;
+  main.innerHTML = CardHtml;
+}
 
 function createUserCard(user) {
   const CardHtml = `

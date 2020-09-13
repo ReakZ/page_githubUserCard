@@ -1,2 +1,2 @@
 # page_githubUserCard
-Show info about github user
+Load and show info about github user
